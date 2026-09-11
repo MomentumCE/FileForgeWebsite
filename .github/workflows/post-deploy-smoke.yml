@@ -1,0 +1,41 @@
+name: Post-deploy smoke
+
+# Runs after Netlify deploys production. Submits a real test entry to the
+# contact form and verifies it lands in Netlify Forms via the API.
+#
+# Setup required (one-time):
+#   1. Create a Netlify Personal Access Token (User settings → Applications)
+#      with form read+write scope.
+#   2. Add GitHub repo secrets:
+#        NETLIFY_AUTH_TOKEN  - the PAT from step 1
+#        NETLIFY_SITE_ID     - site API ID from Netlify (Site settings → General)
+#   3. Confirm the Netlify–GitHub integration is creating GitHub deployments.
+#      (Netlify creates them automatically when connected to a GitHub repo.)
+#
+# Trigger: GitHub fires `deployment_status` whenever Netlify reports a deploy
+# result. We filter for production successes only - deploy previews skipped.
+
+on:
+  deployment_status:
+
+jobs:
+  smoke:
+    name: Submit + verify test entry via Netlify Forms API
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run smoke test
+        run: node scripts/post-deploy-smoke.mjs
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          DEPLOY_URL: ${{ github.event.deployment_status.target_url }}

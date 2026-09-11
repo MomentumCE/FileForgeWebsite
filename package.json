@@ -1,0 +1,37 @@
+{
+  "name": "fileforge-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test:e2e": "playwright test",
+    "test:unit": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:smoke": "node scripts/post-deploy-smoke.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/cloudfront-signer": "^3.1098.0",
+    "@netlify/blobs": "^10.7.10",
+    "@phosphor-icons/react": "^2.1.10",
+    "framer-motion": "^12.38.0",
+    "next": "16.2.4",
+    "next-mdx-remote": "^6.0.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5",
+    "@playwright/test": "^1.59.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  # @netlify/plugin-nextjs expects publish = ".next". The site's Netlify
+  # dashboard was carrying publish = "." from the static HTML era, which
+  # triggered "publish directory cannot be the same as the base directory".
+  # Setting it explicitly here pins it and overrides whatever's in the UI.
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

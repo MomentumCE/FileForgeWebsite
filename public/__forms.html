@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Netlify form registration</title>
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+<!--
+  Static stubs so Netlify's form bot reliably detects our forms at build time.
+  The live forms are rendered by components/Contact.tsx and
+  components/fileforge-finder/FeedbackForm.tsx. Field names and option values
+  here must stay in sync with those components.
+-->
+
+<!-- Contact / discovery call - #contact on the service (home) page -->
+<form name="contact" data-netlify="true" method="POST" action="/">
+  <input type="hidden" name="form-name" value="contact" />
+  <input type="text" name="first_name" />
+  <input type="text" name="last_name" />
+  <input type="email" name="email" />
+  <input type="text" name="organization" />
+  <textarea name="message"></textarea>
+  <button type="submit"></button>
+</form>
+
+<!-- FileForge Finder user feedback - app/finder/feedback -->
+<form name="fileforge-feedback" data-netlify="true" method="POST" action="/finder/feedback">
+  <input type="hidden" name="form-name" value="fileforge-feedback" />
+  <select name="topic">
+    <option value=""></option>
+    <option value="general"></option>
+    <option value="bug"></option>
+    <option value="feature"></option>
+    <option value="search"></option>
+    <option value="performance"></option>
+    <option value="other"></option>
+  </select>
+  <textarea name="message"></textarea>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="text" name="app_version" />
+  <button type="submit"></button>
+</form>
+</body>
+</html>
