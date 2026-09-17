@@ -8,6 +8,7 @@ import { Pricing } from "@/components/fileforge/Pricing";
 import { Trust } from "@/components/fileforge/Trust";
 import { CTA } from "@/components/fileforge/CTA";
 import { FinderCallout } from "@/components/fileforge/FinderCallout";
+import { MomentumCallout } from "@/components/fileforge/MomentumCallout";
 import { Contact } from "@/components/Contact";
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function FileForgePage() {
       <Pricing />
       <Trust />
       <FinderCallout />
+      <MomentumCallout />
       <CTA />
       <Contact />
     </main>
