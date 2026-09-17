@@ -19,5 +19,7 @@ export const SITE_HOST = new URL(SITE_URL).host;
 // "contact".
 export const CONTACT_HREF = "/#contact";
 
-// The consulting company behind FileForge, linked from the footer.
+// The consulting company behind FileForge. Linked from the nav, the service
+// page hero badge, the MomentumCallout band and the footer - this site is often
+// the first thing a visitor sees, so every page offers a way back to it.
 export const MOMENTUM_URL = "https://momentumce.com";

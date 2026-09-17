@@ -123,6 +123,7 @@ a {
 }
 
 .nav-logo-mark {
+  display: block;
   width: 44px;
   height: auto;
   flex-shrink: 0;
@@ -157,9 +158,135 @@ a {
   background: rgba(17, 26, 17, 0.05);
 }
 
+/* "by [wave] Momentum CE" - the attribution half of the FileForge lockup, used
+   by the nav, the footer brand block and the service page's Momentum band.
+   Deliberately small and quiet: FileForge is the product, Momentum CE is who
+   makes it. */
+.momentum-byline {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--font-body), "DM Sans", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.momentum-byline-prefix {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* Wave to the left of the name, the way momentumce.com sets its own lockup.
+   Baseline-aligned so the mark's bottom edge sits on the name's baseline. */
+.momentum-byline-stack {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.momentum-byline-mark {
+  /* --momentum-mark-w comes from the component so one mark can serve several
+     contexts; height follows the 358:84 aspect of the cropped file. */
+  width: var(--momentum-mark-w, 40px);
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* Momentum sets its wordmark in the bold serif, not the body face. */
+.momentum-byline-name {
+  font-family: var(--font-head), "Source Serif 4", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a.momentum-byline:hover {
+  color: var(--accent);
+}
+
+/* Standalone use, where the byline is the heading rather than a subordinate
+   line under a wordmark (see MomentumCallout). Set here rather than with a
+   Tailwind text- utility: this file is unlayered and so outranks utilities. */
+.momentum-byline--lg {
+  font-size: 0.875rem;
+  gap: 0.4rem;
+}
+
+.momentum-byline--lg .momentum-byline-stack {
+  gap: 0.45rem;
+}
+
+/* On the dark footer the muted ink token would disappear. */
+.momentum-byline--on-dark {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+a.momentum-byline--on-dark:hover {
+  color: #fff;
+}
+
+/* FileForge leads, with the byline tucked under it. The image's negative bottom
+   margin (see below) has already trimmed the transparent band beneath the
+   letterforms, so this gap is the real optical gap. */
+.brand-lockup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+/* fileforge-logo.png is padded on the left as well - 56px of its 563px - so a
+   flush-left byline would start well left of the "F". Indent it by that share
+   of the image's width to sit under the letterforms. In the footer the image
+   is inside a white plate, so the byline also clears the plate's left padding,
+   and the image is that much narrower than the declared width because the
+   plate is border-box. */
+.footer-brand-logo .momentum-byline {
+  margin-left: calc(
+    var(--ff-plate-pad-x) +
+      (var(--ff-wordmark-w) - 2 * var(--ff-plate-pad-x)) * 56 / 563
+  );
+}
+
+/* The one nav item that leaves this site (momentumce.com). Sits a touch quieter
+   than the in-site links and carries an arrow glyph so the off-site jump is
+   visible before the click. */
+.nav-links a.nav-external,
+.mobile-menu-links a.nav-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nav-external-icon {
+  width: 0.75em;
+  height: 0.75em;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+a.nav-external:hover .nav-external-icon {
+  opacity: 1;
+}
+
+/* Every nav button resolves to one height. Left to themselves they would not:
+   a plain inline <a> measures its font metrics, an inline-flex one measures its
+   line-height, a border adds two more pixels, and the download button is taller
+   still because of its OS icons. So: flex box, shared line-height, and a
+   min-height matching the tallest of them. */
 .nav-cta {
+  display: inline-flex !important;
+  align-items: center;
+  min-height: 2.5rem;
   background: var(--accent) !important;
   color: white !important;
+  line-height: 1.5 !important;
   padding: 0.5rem 1.125rem !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
@@ -181,6 +308,26 @@ a {
 .nav-cta.nav-cta--orange:hover {
   background: #b45309 !important;
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3) !important;
+}
+
+/* The way back to momentumce.com. Button-shaped so it reads as a destination
+   rather than another in-site link, but outlined instead of filled so it never
+   competes with the primary CTA beside it. */
+.nav-cta.nav-cta--momentum {
+  background: transparent !important;
+  color: var(--ink-muted) !important;
+  border: 1px solid var(--border);
+  /* The border is the only thing this variant adds to the box, so take it back
+     out of the padding and the button matches its filled neighbour exactly. */
+  padding: calc(0.5rem - 1px) calc(1.125rem - 1px) !important;
+}
+
+.nav-cta.nav-cta--momentum:hover {
+  background: rgba(17, 26, 17, 0.05) !important;
+  border-color: var(--ink-faint);
+  color: var(--ink) !important;
+  transform: none;
+  box-shadow: none !important;
 }
 
 
@@ -481,6 +628,7 @@ a {
 }
 
 .footer-brand-logo-mark {
+  display: block;
   width: 44px;
   height: auto;
   flex-shrink: 0;
@@ -2372,14 +2520,29 @@ section {
    beside it (components/Navigation.tsx, components/Footer.tsx).
 ───────────────────────────────────────── */
 .nav-logo-mark--wordmark {
-  width: 132px;
+  width: 162px;
+}
+
+/* fileforge-logo.png carries 27px of transparent padding beneath the
+   letterforms out of 563px of width, so at any rendered size the empty band is
+   27/563 = 4.796% of the width. A negative margin of exactly that closes the
+   gap, so the byline tucks under the lettering rather than under empty pixels.
+   Only the footer needs it - the nav has nothing beneath its wordmark. */
+.footer-brand-logo-mark--wordmark img {
+  margin-bottom: -4.796%;
 }
 
 .footer-brand-logo-mark--wordmark {
-  width: 150px;
-  padding: 6px 10px;
+  width: var(--ff-wordmark-w);
+  padding: var(--ff-plate-pad-y) var(--ff-plate-pad-x);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.92);
+}
+
+.footer-brand-logo {
+  --ff-wordmark-w: 196px;
+  --ff-plate-pad-y: 6px;
+  --ff-plate-pad-x: 10px;
 }
 
 .footer-brand-desc a {
@@ -2391,3 +2554,4 @@ section {
 .footer-brand-desc a:hover {
   color: #fff;
 }
+

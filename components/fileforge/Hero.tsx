@@ -1,11 +1,18 @@
 "use client";
 
-import { ArrowRight, ShieldCheck, BuildingOffice, MapPin } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ShieldCheck,
+  BuildingOffice,
+  MapPin,
+} from "@phosphor-icons/react";
+import { MomentumMark } from "@/components/MomentumByline";
 import { MagneticButton } from "./ui/MagneticButton";
 import { AnimatedHeadline } from "./ui/AnimatedText";
 import { motion } from "framer-motion";
 import { PaperToDigital } from "./PaperToDigital";
-import { CONTACT_HREF } from "@/lib/site";
+import { CONTACT_HREF, MOMENTUM_URL } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -17,10 +24,22 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, type: "spring", stiffness: 100, damping: 20 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-surface-border bg-surface/60 text-sm text-muted"
+              className="inline-block"
             >
-              <MapPin size={16} weight="duotone" />
-              A Momentum CE service
+              <a
+                href={MOMENTUM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-surface-border bg-surface/60 text-sm text-muted transition-colors hover:border-accent hover:text-accent"
+              >
+                <MomentumMark width={34} />
+                A Momentum CE service
+                <ArrowUpRight
+                  size={14}
+                  weight="bold"
+                  className="opacity-50 transition-opacity group-hover:opacity-100"
+                />
+              </a>
             </motion.div>
 
             <AnimatedHeadline

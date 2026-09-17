@@ -5,20 +5,40 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { DownloadFinderButton } from "@/components/fileforge-finder/DownloadFinderButton";
-import { CONTACT_HREF } from "@/lib/site";
+import { CONTACT_HREF, MOMENTUM_URL } from "@/lib/site";
 
 // A flat list rather than the Momentum site's Services dropdown: this site has
-// three destinations, and a menu for three items is one click too many.
+// two destinations, and a menu for two items is one click too many. Sign in
+// lives inside the Finder flow rather than the top bar.
 const navLinks = [
   { label: "Paper to Digital", href: "/fileforge-service" },
   { label: "FileForge Finder", href: "/finder" },
-  { label: "Sign in", href: "/finder/signin" },
 ];
 
 // Pages that pitch the desktop app. On these the nav CTA is the download
 // button; everywhere else (including the home page, which next.config.ts
 // rewrites to the service page) it points at the discovery-call form.
 const FINDER_PATHS = new Set(["/finder", "/fileforge-plus"]);
+
+// Marks the nav items that leave this site for momentumce.com, so the jump
+// off-site is visible before the click rather than a surprise in a new tab.
+function ExternalIcon() {
+  return (
+    <svg
+      className="nav-external-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M8 7h9v9" />
+    </svg>
+  );
+}
 
 export function Navigation() {
   const pathname = usePathname();
@@ -45,7 +65,10 @@ export function Navigation() {
         aria-label="Main navigation"
       >
         <Link href="/" className="nav-logo" aria-label="FileForge home">
-          <div className="nav-logo-mark nav-logo-mark--wordmark" aria-hidden="true">
+          <span
+            className="nav-logo-mark nav-logo-mark--wordmark"
+            aria-hidden="true"
+          >
             <Image
               src="/fileforge/fileforge-logo.png"
               alt="FileForge logo"
@@ -53,7 +76,7 @@ export function Navigation() {
               height={176}
               priority
             />
-          </div>
+          </span>
         </Link>
 
         <ul className="nav-links" role="list">
@@ -65,6 +88,17 @@ export function Navigation() {
               <Link href={link.href}>{link.label}</Link>
             </li>
           ))}
+          <li>
+            <a
+              href={MOMENTUM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-cta nav-cta--momentum nav-external"
+            >
+              Momentum CE
+              <ExternalIcon />
+            </a>
+          </li>
           <li>
             {onFinderPage ? (
               <DownloadFinderButton
@@ -112,6 +146,18 @@ export function Navigation() {
               </Link>
             </li>
           ))}
+          <li>
+            <a
+              href={MOMENTUM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-external"
+              onClick={closeMenu}
+            >
+              Momentum CE
+              <ExternalIcon />
+            </a>
+          </li>
           <li>
             {onFinderPage ? (
               <DownloadFinderButton

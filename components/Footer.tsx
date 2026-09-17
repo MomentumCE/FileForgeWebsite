@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MomentumBylineLink } from "@/components/MomentumByline";
 import { CONTACT_HREF, MOMENTUM_URL } from "@/lib/site";
 
 const productLinks = [
@@ -24,18 +25,24 @@ export function Footer() {
         <div className="footer-top">
           <div>
             <div className="footer-brand-logo">
-              <div
-                className="footer-brand-logo-mark footer-brand-logo-mark--wordmark"
-                aria-hidden="true"
-              >
-                <Image
-                  src="/fileforge/fileforge-logo.png"
-                  alt="FileForge logo"
-                  width={563}
-                  height={176}
-                  loading="lazy"
+              <span className="brand-lockup">
+                <span
+                  className="footer-brand-logo-mark footer-brand-logo-mark--wordmark"
+                  aria-hidden="true"
+                >
+                  <Image
+                    src="/fileforge/fileforge-logo.png"
+                    alt="FileForge logo"
+                    width={563}
+                    height={176}
+                    loading="lazy"
+                  />
+                </span>
+                <MomentumBylineLink
+                  className="momentum-byline--on-dark"
+                  markWidth={46}
                 />
-              </div>
+              </span>
             </div>
             <p className="footer-brand-desc">
               <em className="footer-brand-desc-accent">
