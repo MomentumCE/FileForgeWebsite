@@ -54,10 +54,14 @@ export function DownloadFinderButton({
   // "windows" during SSR/first paint so no Linux menu ever renders on the
   // server; it settles to the real value once mounted.
   const [platform, setPlatform] = useState<Platform>("windows");
+  // Detection only happens after mount, so the button holds the icon slot empty
+  // until then rather than flashing the Windows default at every visitor.
+  const [detected, setDetected] = useState(false);
   const rootRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     setPlatform(detectPlatform());
+    setDetected(true);
   }, []);
 
   // Close the Linux format menu on an outside click or Escape.
@@ -110,10 +114,14 @@ export function DownloadFinderButton({
           ) : (
             <>
               {label}
-              <span className="flex items-center gap-1.5 opacity-90" aria-hidden="true">
-                <AppleLogo size={18} weight="fill" />
-                <WindowsLogo size={16} weight="fill" />
-                <LinuxLogo size={16} weight="fill" />
+              {/* Only the visitor's own platform is shown — the installer they
+                  get is the one this icon names. The slot keeps its width
+                  before detection resolves so the label doesn't shift. */}
+              <span
+                className="flex w-[18px] items-center justify-center opacity-90"
+                aria-hidden="true"
+              >
+                {detected ? <PlatformLogo platform={platform} /> : null}
               </span>
             </>
           )}
@@ -141,6 +149,12 @@ export function DownloadFinderButton({
       ) : null}
     </span>
   );
+}
+
+function PlatformLogo({ platform }: { platform: Platform }) {
+  if (platform === "mac") return <AppleLogo size={18} weight="fill" />;
+  if (platform === "linux") return <LinuxLogo size={16} weight="fill" />;
+  return <WindowsLogo size={16} weight="fill" />;
 }
 
 function LinuxOption({
