@@ -5,6 +5,7 @@ import { Benefits } from "@/components/fileforge/Benefits";
 import { Services } from "@/components/fileforge/Services";
 import { Process } from "@/components/fileforge/Process";
 import { Pricing } from "@/components/fileforge/Pricing";
+import { Testimonial } from "@/components/fileforge/Testimonial";
 import { Trust } from "@/components/fileforge/Trust";
 import { CTA } from "@/components/fileforge/CTA";
 import { FinderCallout } from "@/components/fileforge/FinderCallout";
@@ -33,6 +34,7 @@ export default function FileForgePage() {
       <Benefits />
       <Services />
       <Process />
+      <Testimonial />
       <Pricing />
       <Trust />
       <FinderCallout />

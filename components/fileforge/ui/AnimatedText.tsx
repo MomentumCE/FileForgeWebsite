@@ -21,14 +21,17 @@ const containerVariants: Variants = {
 export function AnimatedHeadline({
   text,
   className = "",
+  as = "h1",
 }: {
   text: string;
   className?: string;
+  as?: "h1" | "p";
 }) {
   const words = text.split(" ");
+  const Tag = as === "p" ? motion.p : motion.h1;
 
   return (
-    <motion.h1
+    <Tag
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -48,6 +51,6 @@ export function AnimatedHeadline({
           ))}
         </span>
       ))}
-    </motion.h1>
+    </Tag>
   );
 }

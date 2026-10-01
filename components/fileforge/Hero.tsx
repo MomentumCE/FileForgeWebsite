@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   ShieldCheck,
@@ -42,28 +43,68 @@ export function Hero() {
               </a>
             </motion.div>
 
-            <AnimatedHeadline
-              text="Paper to digital. We handle everything in between."
-              className="text-4xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.95] font-semibold gradient-text"
-            />
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 100, damping: 20 }}
-              className="text-base md:text-lg text-muted leading-relaxed max-w-[55ch]"
-            >
-              FileForge is Momentum CE&apos;s end-to-end digitization service. Our
-              team shows up on-site, scans with professional hardware, runs OCR,
-              and delivers clean, organized digital files - named consistently,
-              grouped sensibly, and ready for whatever your team needs to do
-              next.
-            </motion.p>
+            {/* A customer's words lead the hero, so the quote gets the display
+                type. The service statement stays the page's h1 for search and
+                screen readers, just set smaller beneath it. */}
+            <figure className="space-y-5">
+              <blockquote>
+                <AnimatedHeadline
+                  as="p"
+                  text="“I have been amazed with my ability to find information quickly.”"
+                  className="font-head text-4xl md:text-6xl lg:text-[4.25rem] tracking-tight leading-[1.08] pb-[0.12em] font-semibold gradient-text"
+                />
+              </blockquote>
+              <motion.figcaption
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, type: "spring", stiffness: 100, damping: 20 }}
+                className="flex flex-wrap items-center gap-x-4 gap-y-2"
+              >
+                <span className="flex items-center gap-3">
+                  <span aria-hidden="true" className="h-px w-8 bg-accent" />
+                  <span className="text-sm md:text-base">
+                    <span className="font-semibold text-foreground">David Ames</span>
+                    <span className="text-muted">
+                      , Secretary of the Trappers Point HOA
+                    </span>
+                  </span>
+                </span>
+                <a
+                  href="#testimonial"
+                  className="group inline-flex items-center gap-1 text-sm font-medium !text-accent hover:underline underline-offset-4"
+                >
+                  Read the full letter
+                  <ArrowDown
+                    size={14}
+                    weight="bold"
+                    className="transition-transform group-hover:translate-y-0.5"
+                  />
+                </a>
+              </motion.figcaption>
+            </figure>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, type: "spring", stiffness: 100, damping: 20 }}
+              transition={{ delay: 1, type: "spring", stiffness: 100, damping: 20 }}
+              className="space-y-3"
+            >
+              <h1 className="text-2xl md:text-3xl tracking-tight leading-tight font-semibold">
+                Paper to digital. We handle everything in between.
+              </h1>
+              <p className="text-base md:text-lg text-muted leading-relaxed max-w-[55ch]">
+                FileForge is Momentum CE&apos;s end-to-end digitization service. Our
+                team shows up on-site, scans with professional hardware, runs OCR,
+                and delivers clean, organized digital files - named consistently,
+                grouped sensibly, and ready for whatever your team needs to do
+                next.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, type: "spring", stiffness: 100, damping: 20 }}
               className="flex flex-wrap items-center gap-4"
             >
               <MagneticButton
@@ -86,7 +127,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 1.2 }}
               className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted pt-2"
             >
               <span className="flex items-center gap-1.5">
